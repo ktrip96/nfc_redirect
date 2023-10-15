@@ -30,16 +30,10 @@ app.use(async (req, res, next) => {
 app.get('/redirect', async (req, res) => {
 	const id = new ObjectId(req.query.id)
 
-	console.log('Id is :, ', id)
-
 	const collection = req.db.collection('clients')
-
-	console.log('Collection is : ', collection)
 
 	// Perform your MongoDB query to check if the ID matches a user
 	const user = await collection.findOne({ _id: id })
-
-	console.log('user is : ', user)
 
 	if (user) {
 		// Redirect to another domain
