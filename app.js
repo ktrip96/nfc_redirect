@@ -37,7 +37,10 @@ app.get('/redirect', async (req, res) => {
 
 	if (user) {
 		// Redirect to another domain
-		res.redirect(user.url) // Replace with the desired domain
+		res.redirect(user.url)
+		// Record the date of redirection in the database
+		const currentDate = new Date()
+		await collection.findOneAndUpdate({ _id: id }, { $push: { redirectionDates: currentDate } })
 	} else {
 		// Send a "Something went wrong" message
 		res.send('<h1>Something went wrong</h1>')
